@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0F5257">
+  <meta name="description" content="סדנת יוטגוגיה (Heutagogy): מרחב התנסות אישי — תפריט התנסויות ופרומפטים מוכנים להעתקה ולעריכה עבור מרצים.">
+
+  <!-- Open Graph: link preview -->
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="he_IL">
+  <meta property="og:title" content="סדנת יוטגוגיה (Heutagogy): מרחב התנסות אישי">
+  <meta property="og:description" content="בחרו התנסות, ערכו את הפרומפט והעתיקו אותו בלחיצה לכלי ה-AI המועדף עליכם.">
+
+  <title>סדנת יוטגוגיה (Heutagogy): מרחב התנסות אישי</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700;800&family=Frank+Ruhl+Libre:wght@500;700;900&display=swap" rel="stylesheet">
+
+  <style>
+    /* ===== Design tokens ===== */
+    :root{
+      --cream:#FAF6EE;
+      --cream-2:#F2E9D9;
+      --surface:#FFFFFF;
+      --ink:#1E2B33;
+      --ink-soft:#46565E;
+      --teal:#0F5257;
+      --teal-700:#0A3D41;
+      --teal-50:#E4EFEF;
+      --coral:#C75B39;
+      --coral-700:#A8492C;
+      --sand:#E7D8C0;
+      --line:#E7DFD0;
+      --focus:#E0892A;
+      --radius:20px;
+      --radius-sm:12px;
+      --shadow-sm:0 1px 2px rgba(30,43,51,.06), 0 4px 14px rgba(30,43,51,.05);
+      --shadow-md:0 14px 40px rgba(15,82,87,.16), 0 4px 12px rgba(30,43,51,.08);
+      --maxw:1080px;
+    }
+
+    /* ===== Reset ===== */
+    *,*::before,*::after{box-sizing:border-box;}
+    html{-webkit-text-size-adjust:100%;}
+    body{
+      margin:0;
+      font-family:'Assistant','Segoe UI','Arial Hebrew',Arial,sans-serif;
+      background:var(--cream);
+      color:var(--ink);
+      line-height:1.7;
+      font-size:18px;
+      -webkit-font-smoothing:antialiased;
+      text-rendering:optimizeLegibility;
+    }
+    h1,h2,h3{line-height:1.25;margin:0;}
+    p{margin:0;}
+    button{font-family:inherit;}
+
+    /* English / Latin runs inside Hebrew */
+    .latin{font-family:inherit;}
+
+    /* ===== Accessibility helpers ===== */
+    .sr-only{
+      position:absolute;width:1px;height:1px;padding:0;margin:-1px;
+      overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;
+    }
+    .skip-link{
+      position:absolute;top:-100%;right:0;
+      background:var(--teal);color:#fff;padding:.75rem 1.5rem;
+      font-weight:700;z-index:300;text-decoration:none;border-radius:0 0 0 10px;
+    }
+    .skip-link:focus{top:0;outline:3px solid var(--focus);outline-offset:2px;}
+
+    a:focus-visible,button:focus-visible,[tabindex]:focus-visible,
+    input:focus-visible,select:focus-visible,textarea:focus-visible{
+      outline:3px solid var(--focus);
+      outline-offset:3px;
+      border-radius:6px;
+    }
+
+    /* ===== Layout ===== */
+    .wrap{max-width:var(--maxw);margin-inline:auto;padding-inline:clamp(1rem,4vw,2.5rem);}
+
+    /* ===== Hero ===== */
+    .hero{
+      position:relative;
+      overflow:hidden;
+      background:
+        radial-gradient(120% 90% at 88% -10%, rgba(199,91,57,.16), transparent 55%),
+        radial-gradient(120% 100% at 5% 0%, rgba(15,82,87,.18), transparent 52%),
+        linear-gradient(180deg,#0F5257 0%,#0C474B 100%);
+      color:#fff;
+      padding-block:clamp(3rem,8vw,5.5rem) clamp(3.5rem,9vw,6rem);
+    }
+    /* concentric "ripples" — decorative depth motif */
+    .hero::before{
+      content:"";position:absolute;inset:0;pointer-events:none;
+      background-image:
+        radial-gradient(circle at 92% 8%, rgba(255,255,255,.10) 0 1px, transparent 2px),
+        repeating-radial-gradient(circle at 92% 8%, transparent 0 38px, rgba(255,255,255,.05) 38px 39px);
+      opacity:.7;
+    }
+    .hero .wrap{position:relative;}
+    .eyebrow{
+      display:inline-flex;align-items:center;gap:.5ch;
+      font-weight:700;letter-spacing:.02em;font-size:.85rem;
+      color:#FBE9DF;background:rgba(199,91,57,.30);
+      border:1px solid rgba(255,255,255,.22);
+      padding:.35rem .9rem;border-radius:999px;margin-bottom:1.25rem;
+    }
+    .hero h1{
+      font-family:'Frank Ruhl Libre',Georgia,serif;
+      font-weight:900;
+      font-size:clamp(2rem,5.5vw,3.4rem);
+      letter-spacing:-.01em;
+      max-width:18ch;
+    }
+    .hero h1 .latin{font-weight:700;opacity:.92;}
+    .hero .lead{
+      margin-top:1.4rem;max-width:60ch;
+      font-size:clamp(1.05rem,2.2vw,1.25rem);
+      color:#EAF3F2;
+    }
+    .hero .lead + .lead{margin-top:.85rem;}
+    .hero .lead strong{color:#fff;}
+
+    /* wave divider */
+    .wave{display:block;width:100%;height:42px;margin-top:-1px;color:var(--cream);}
+    .wave svg{display:block;width:100%;height:100%;}
+
+    /* ===== Task section ===== */
+    main{padding-bottom:4rem;}
+    .section-head{margin-bottom:1.6rem;}
+    .section-head h2{
+      font-family:'Frank Ruhl Libre',Georgia,serif;
+      font-size:clamp(1.5rem,3.5vw,2.1rem);
+      font-weight:700;color:var(--teal-700);
+      display:flex;align-items:center;gap:.6rem;
+    }
+    .section-head h2::before{
+      content:"";width:.55rem;height:1.6rem;border-radius:3px;
+      background:var(--coral);flex:none;
+    }
+    .section-head .sub{margin-top:.5rem;color:var(--ink-soft);max-width:62ch;}
+
+    .task{
+      background:var(--surface);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow-sm);
+      padding:clamp(1.4rem,3vw,2.2rem);
+      margin-top:-2.2rem;position:relative;z-index:2;
+    }
+    .steps{list-style:none;margin:1.2rem 0 0;padding:0;display:grid;gap:1rem;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));}
+    .steps li{display:flex;gap:.85rem;align-items:flex-start;}
+    .step-num{
+      flex:none;width:2.2rem;height:2.2rem;border-radius:50%;
+      background:var(--teal-50);color:var(--teal-700);
+      font-weight:800;font-size:1.05rem;
+      display:grid;place-items:center;border:1.5px solid #CFE2E1;
+    }
+    .steps li p{font-size:1rem;color:var(--ink);}
+    .steps em{font-style:normal;font-weight:800;color:var(--coral-700);
+      border-bottom:2px solid var(--sand);padding-bottom:1px;}
+
+    /* ===== Menu / cards ===== */
+    .menu{margin-top:3.2rem;}
+    .cards{
+      display:grid;gap:1.25rem;
+      grid-template-columns:repeat(auto-fill,minmax(290px,1fr));
+    }
+    .card{
+      position:relative;text-align:right;cursor:pointer;
+      background:var(--surface);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow-sm);
+      padding:1.5rem 1.5rem 1.35rem;
+      display:flex;flex-direction:column;gap:.55rem;
+      transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+      color:inherit;width:100%;
+    }
+    .card:hover{transform:translateY(-4px);box-shadow:var(--shadow-md);border-color:#D9CDB6;}
+    .card-top{display:flex;align-items:center;gap:.85rem;}
+    .card-num{
+      flex:none;width:2.9rem;height:2.9rem;border-radius:14px;
+      background:linear-gradient(150deg,var(--coral),#B14A2B);
+      color:#fff;font-weight:800;font-size:1.5rem;
+      display:grid;place-items:center;
+      box-shadow:0 4px 12px rgba(199,91,57,.30);
+    }
+    .card-tag{
+      font-size:.74rem;font-weight:700;color:var(--teal-700);
+      background:var(--teal-50);border:1px solid #D2E4E3;
+      padding:.2rem .6rem;border-radius:999px;
+    }
+    .card h3{
+      font-size:1.22rem;font-weight:800;color:var(--ink);
+      font-family:'Assistant',sans-serif;
+    }
+    .card .goal{color:var(--ink-soft);font-size:.98rem;flex:1;}
+    .card .open-hint{
+      margin-top:.4rem;color:var(--teal);font-weight:700;font-size:.95rem;
+      display:inline-flex;align-items:center;gap:.4ch;
+    }
+    .card .open-hint svg{width:1em;height:1em;transition:transform .18s ease;}
+    .card:hover .open-hint svg{transform:translateX(-4px);}
+
+    /* ===== Modal ===== */
+    dialog{
+      border:none;padding:0;background:transparent;
+      width:min(760px,94vw);
+      max-height:92dvh;color:var(--ink);
+      margin:auto; /* center */
+    }
+    dialog::backdrop{
+      background:rgba(13,40,42,.55);
+      backdrop-filter:blur(3px);
+    }
+    .modal-panel{
+      background:var(--surface);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow-md);
+      max-height:92dvh;display:flex;flex-direction:column;overflow:hidden;
+    }
+    .modal-head{
+      display:flex;align-items:flex-start;gap:1rem;
+      padding:1.4rem 1.6rem;border-bottom:1px solid var(--line);
+      background:linear-gradient(180deg,var(--cream-2),var(--surface));
+    }
+    .modal-head .mnum{
+      flex:none;width:2.8rem;height:2.8rem;border-radius:12px;
+      background:linear-gradient(150deg,var(--coral),#B14A2B);color:#fff;
+      font-weight:800;font-size:1.45rem;display:grid;place-items:center;
+    }
+    .modal-head h2{
+      font-size:1.3rem;font-weight:800;color:var(--ink);
+      font-family:'Assistant',sans-serif;
+    }
+    .modal-head .mgoal{margin-top:.3rem;color:var(--ink-soft);font-size:.97rem;}
+    .modal-close{
+      margin-inline-start:auto;flex:none;
+      width:2.6rem;height:2.6rem;border-radius:10px;cursor:pointer;
+      border:1px solid var(--line);background:var(--surface);
+      color:var(--ink);font-size:1.4rem;line-height:1;
+      display:grid;place-items:center;transition:background .15s ease;
+    }
+    .modal-close:hover{background:var(--cream-2);}
+    .modal-body{padding:1.5rem 1.6rem 1.7rem;overflow-y:auto;}
+
+    .prompt-block + .prompt-block{
+      margin-top:1.6rem;padding-top:1.6rem;border-top:1px dashed var(--line);
+    }
+    .prompt-label{display:block;font-weight:800;color:var(--teal-700);margin-bottom:.6rem;}
+    .opt-label{display:block;font-weight:800;color:var(--coral-700);margin-bottom:.55rem;}
+    .prompt-input{
+      width:100%;display:block;
+      font-family:'Assistant',sans-serif;font-size:1rem;line-height:1.65;
+      color:var(--ink);background:var(--cream);
+      border:1.5px solid var(--line);border-radius:var(--radius-sm);
+      padding:1rem 1.1rem;resize:vertical;min-height:8rem;
+      direction:rtl;
+    }
+    .prompt-input:focus{border-color:var(--teal);background:#fff;}
+    .prompt-actions{display:flex;flex-wrap:wrap;align-items:center;gap:.75rem;margin-top:.7rem;}
+    .btn-copy{
+      display:inline-flex;align-items:center;gap:.5rem;cursor:pointer;
+      background:var(--teal);color:#fff;font-weight:700;font-size:1rem;
+      border:none;border-radius:10px;padding:.7rem 1.25rem;
+      min-height:44px;transition:background .15s ease,transform .1s ease;
+    }
+    .btn-copy:hover{background:var(--teal-700);}
+    .btn-copy:active{transform:scale(.97);}
+    .btn-copy.copied{background:#1F7A45;}
+    .btn-copy svg{width:1.15em;height:1.15em;flex:none;}
+    .edit-hint{color:var(--ink-soft);font-size:.9rem;}
+
+    .guidance{
+      background:var(--teal-50);border:1px solid #D2E4E3;
+      border-radius:var(--radius-sm);padding:1.1rem 1.2rem;
+    }
+    .guidance .glabel{font-weight:800;color:var(--teal-700);display:block;margin-bottom:.3rem;}
+    .guidance p{color:var(--ink);}
+
+    .opt-intro{font-weight:700;color:var(--ink);margin-bottom:.4rem;}
+
+    /* ===== Footer ===== */
+    footer{background:var(--teal-700);color:#EAF3F2;padding-block:3rem 2.5rem;}
+    .closing{
+      max-width:64ch;margin-inline:auto;text-align:center;
+      font-size:1.15rem;color:#fff;
+    }
+    .closing strong{color:#FBD9C9;}
+    .accessibility-statement{
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.16);
+      border-radius:12px;padding:1.4rem 1.8rem;
+      max-width:720px;margin:2.2rem auto 0;font-size:.92rem;color:#DCEAE9;
+    }
+    .accessibility-statement h3{font-size:1.05rem;margin-bottom:.6rem;color:#fff;}
+    .accessibility-statement p{margin-bottom:.6rem;}
+    .accessibility-statement a{color:#FBD9C9;}
+    .credit{text-align:center;margin-top:2rem;font-size:.85rem;color:#9DBEBC;}
+
+    /* ===== Toast ===== */
+    .toast{
+      position:fixed;inset-block-end:1.5rem;inset-inline:0;margin-inline:auto;
+      width:max-content;max-width:90vw;
+      background:var(--ink);color:#fff;font-weight:700;
+      padding:.8rem 1.4rem;border-radius:999px;box-shadow:var(--shadow-md);
+      display:flex;align-items:center;gap:.55rem;
+      opacity:0;transform:translateY(12px);pointer-events:none;
+      transition:opacity .25s ease, transform .25s ease;z-index:400;
+    }
+    .toast.show{opacity:1;transform:translateY(0);}
+    .toast svg{width:1.2em;height:1.2em;color:#6FE0A0;}
+
+    /* ===== Responsive ===== */
+    @media (max-width:768px){
+      body{font-size:17px;}
+      .task{margin-top:-1.6rem;}
+      .modal-head{padding:1.1rem 1.1rem;}
+      .modal-body{padding:1.2rem 1.1rem 1.4rem;}
+    }
+    @media (max-width:480px){
+      dialog{width:94vw;max-height:94dvh;}
+      .modal-panel{max-height:94dvh;}
+      .card-num{width:2.6rem;height:2.6rem;font-size:1.3rem;}
+    }
+
+    /* ===== Reduced motion ===== */
+    @media (prefers-reduced-motion:reduce){
+      *,*::before,*::after{
+        animation-duration:.01ms !important;
+        transition-duration:.01ms !important;
+        scroll-behavior:auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">דלג לתוכן הראשי</a>
+
+  <header class="hero">
+    <div class="wrap">
+      <p class="eyebrow">מרחב התנסות אישי למרצים</p>
+      <h1>סדנת יוטגוגיה <span class="latin" lang="en" dir="ltr">(Heutagogy)</span>: מרחב התנסות אישי</h1>
+      <p class="lead">ברוכים הבאים! במקום להרצות לכם על מהי "יוטגוגיה" (למידה במכוונות עצמית), ננסה להתנסות בתרגילים ברוח יוטגוגית אשר בתקווה יעוררו בנו חשיבה.</p>
+      <p class="lead">העיקרון המרכזי של יוטגוגיה הוא שהלומד מנווט את הלמידה. לכן, לפניכם "תפריט" של התנסויות.</p>
+    </div>
+  </header>
+  <div class="wave" aria-hidden="true">
+    <svg viewBox="0 0 1200 42" preserveAspectRatio="none" focusable="false"><path d="M0,20 C200,42 400,0 600,16 C800,32 1000,4 1200,22 L1200,42 L0,42 Z" fill="currentColor"></path></svg>
+  </div>
+
+  <main id="main-content">
+    <div class="wrap">
+
+      <section class="task" aria-labelledby="task-heading">
+        <div class="section-head" style="margin-bottom:0">
+          <h2 id="task-heading">המשימה שלכם</h2>
+        </div>
+        <ol class="steps">
+          <li><span class="step-num" aria-hidden="true">1</span><p>בחרו 1-2 אפשרויות מתוך הרשימה מטה שמעוררות בכם סקרנות.</p></li>
+          <li><span class="step-num" aria-hidden="true">2</span><p>העתיקו את הפרומפט (ההנחיה) והשלימו את הפרטים החסרים בסוגריים המרובעים [...].</p></li>
+          <li><span class="step-num" aria-hidden="true">3</span><p>הדביקו את הפרומפט בכלי ה-<span class="latin" lang="en" dir="ltr">AI</span> המועדף עליכם (<span class="latin" lang="en" dir="ltr">ChatGPT, Claude, Gemini</span> וכו') והתחילו דיאלוג.</p></li>
+          <li><span class="step-num" aria-hidden="true">4</span><p>שימו לב לא רק ל<em>מה</em> שה-<span class="latin" lang="en" dir="ltr">AI</span> עונה לכם, אלא ל<em>איך</em> שאתם מנווטים את השיחה.</p></li>
+        </ol>
+      </section>
+
+      <section class="menu" aria-labelledby="menu-heading">
+        <div class="section-head">
+          <h2 id="menu-heading">תפריט ההתנסויות</h2>
+          <p class="sub">בחרו התנסות כדי לפתוח אותה. בכל התנסות תוכלו לערוך את הפרומפט בתוך האתר ולהעתיק אותו בלחיצה אחת.</p>
+        </div>
+        <div class="cards" id="cards"></div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <p class="closing"><strong>סיימתם התנסות?</strong> שמרו את התובנות המעניינות, השאלות שעלו או הרעיונות המפתיעים ביותר שקיבלתם. נשתמש בהם בדיון המשותף שנערוך מיד.</p>
+
+      <div class="accessibility-statement">
+        <h3>הצהרת נגישות</h3>
+        <p>אתר זה עומד בדרישות תקנות שוויון זכויות לאנשים עם מוגבלות (התאמות נגישות לשירות), התשע"ג-2013, ותקן ישראלי ת"י 5568 המבוסס על הנחיות <span class="latin" lang="en" dir="ltr">WCAG 2.0</span> ברמה <span class="latin" lang="en" dir="ltr">AA</span>.</p>
+        <p>אם נתקלתם בבעיית נגישות באתר, אנא פנו אלינו ונשמח לסייע:</p>
+        <p><strong>רכז נגישות:</strong> <span class="latin" lang="en" dir="ltr">Tom Hagiladi</span><br>
+        <strong>אימייל:</strong> <a href="mailto:tomhagiladi@gmail.com">tomhagiladi@gmail.com</a></p>
+      </div>
+
+      <p class="credit">סדנת יוטגוגיה · מרחב התנסות אישי למרצים</p>
+    </div>
+  </footer>
+
+  <!-- Reusable modal -->
+  <dialog id="modal" aria-labelledby="modal-title">
+    <div class="modal-panel">
+      <div class="modal-head">
+        <span class="mnum" id="modal-num" aria-hidden="true"></span>
+        <div>
+          <h2 id="modal-title"></h2>
+          <p class="mgoal" id="modal-goal"></p>
+        </div>
+        <button class="modal-close" id="modal-close" aria-label="סגירת החלון" autofocus>&times;</button>
+      </div>
+      <div class="modal-body" id="modal-body"></div>
+    </div>
+  </dialog>
+
+  <!-- Copy feedback (announced to screen readers) -->
+  <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+
+  <script>
+  /* =========================================================
+     Data — every text below is preserved verbatim from the
+     source worksheet. Only the outer "quote wrappers" that
+     marked "copy this" were removed from the prompts.
+     ========================================================= */
+  const EXPERIENCES = [
+    {
+      num: 1,
+      title: `הקפיצה למים: מה זה בכלל יוטגוגיה?`,
+      goal: `לחקור את המושג בדרך שלכם, בלי הגדרות מובנות מראש.`,
+      tag: `ללא פרומפט מובנה`,
+      type: `guidance`,
+      guidanceLabel: `הנחיה ללא פרומפט מובנה:`,
+      guidanceText: `בקשו מה-AI להסביר לכם מהי יוטגוגיה וכיצד היא שונה מפדגוגיה ואנדרגוגיה. אתם יכולים לבקש הסבר פשוט, דוגמאות, או מאמר אקדמי – הבחירה שלכם.`
+    },
+    {
+      num: 2,
+      title: `שותף חשיבה: יישום בקורס שלי`,
+      goal: `להפוך את ה-AI ליועץ פדגוגי שעוזר לכם לשלב יוטגוגיה בקורס שלכם, צעד אחר צעד.`,
+      tag: `פרומפט להעתקה`,
+      type: `single`,
+      promptLabel: `העתיקו את הפרומפט הבא:`,
+      prompt: `אני מרצה בקורס [שם הקורס]. מצורף הסילבוס/תיאור הקורס שלי [אפשר להדביק כאן תקציר. מומלץ לצרף את הסילבוס כקובץ]. אני מעוניין לשלב אלמנטים של יוטגוגיה (למידה במכוונות עצמית של הסטודנטים) במהלך הסמסטר הקרוב.
+אני לא רוצה שתכתוב לי מחדש את הסילבוס או שתיתן לי רשימה של מטלות מוכנות. במקום זאת, תפעל כיועץ פדגוגי בכיר המומחה ביוטגוגיה וכשותף פעיל לחשיבה:
+1. הצבע על 2-3 מקומות בסילבוס שלי שבהם יש הזדמנות טובה להעביר את השליטה לסטודנטים (למשל, בחירת נושא, בחירת אופן ההערכה, ניווט התוכן).
+2. עבור כל הזדמנות כזו, הצע לי 1-2 רעיונות מעשיים וקונקרטיים כיצד אני יכול ליישם זאת בפועל בקורס שלי כדי שלא אלך לאיבוד בתיאוריה.
+3. לאחר שהצעת את הרעיונות, סיים בשאלה פתוחה שתזמין אותי לדיאלוג עליהם, כדי שנוכל לפתח ולדייק את הרעיונות יחד בהתאם לאופי הסטודנטים שלי. המתן לתשובתי לפני שתמשיך בדיאלוג.`
+    },
+    {
+      num: 3,
+      title: `בנעלי הסטודנט: מציאת נתיבי למידה`,
+      goal: `לחוות איך סטודנט יכול לקחת אחריות על הלמידה שלו במקום רק לצרוך חומר.`,
+      tag: `פרומפט להעתקה`,
+      type: `single`,
+      promptLabel: `העתיקו את הפרומפט הבא:`,
+      prompt: `אני סטודנט בקורס [שם הקורס] ואנחנו אמורים ללמוד עכשיו את הנושא של [נושא ספציפי/תיאוריה מהקורס]. אני רוצה לקחת אחריות על הלמידה שלי ולא רק לקרוא את סיכום ההרצאה של המרצה.
+אל תלמד אותי את הנושא בעצמך! במקום זאת, הצע לי 3 נתיבי למידה שונים לחלוטין זה מזה שיעזרו לי להבין וליישם את החומר. עבור כל נתיב, תן לי 2 משימות קטנות שאני יכול לעשות כדי לבדוק את עצמי.`
+    },
+    {
+      num: 4,
+      title: `אתגר הרלוונטיות: יצירת ידע חדש`,
+      goal: `להפסיק לשנן תיאוריות ולהתחיל לבחון את החומר הנלמד אל מול המציאות העכשווית, אתגרי העתיד או תרחישים יוצאי דופן.`,
+      tag: `4 פרומפטים לבחירה`,
+      type: `multi`,
+      introLabel: `בחרו והעתיקו את אחד מהפרומפטים הבאים:`,
+      options: [
+        {
+          label: `אופציה א' (עתידנות):`,
+          kind: `prompt`,
+          text: `קח את המושג הקלאסי [המושג] מתחום ה-[שם התחום]. פעל כעתידן המומחה בתחום זה. הסבר לי כיצד המושג הזה יבוא לידי ביטוי או ישתנה בעוד 10 שנים לאור התפתחויות טכנולוגיות או חברתיות נוכחיות. הבא דוגמה אחת מפתיעה ליישום עתידי שלו.`
+        },
+        {
+          label: `אופציה ב' (ביקורת עכשווית):`,
+          kind: `prompt`,
+          text: `קח את התיאוריה המרכזית [שם התיאוריה]. פעל כמבקר אקדמי עכשווי. הצג לי תופעה אמיתית מהשנתיים האחרונות שמאתגרת את התיאוריה הזו או מוכיחה שהיא זקוקה לעדכון. לאחר מכן, שאל אותי כיצד אני הייתי מעדכן את התיאוריה כדי שתתאים למציאות החדשה.`
+        },
+        {
+          label: `אופציה ג' (תרחישי קיצון):`,
+          kind: `prompt`,
+          text: `קח את התיאוריה או המודל [שם התיאוריה/המודל]. אני רוצה לבחון את הגבולות שלהם. תאר לי תרחיש קיצון יוצא דופן או מצב חירום מהעולם האמיתי (למשל, שינוי אקלימי דרמטי, משבר כלכלי חסר תקדים, או סביבה בעלת חוקים שונים לחלוטין). לאחר מכן, שאל אותי שאלת אתגר אחת ממוקדת: כיצד אני משתמש במה שלמדנו כדי להתמודד עם התרחיש הזה, או לחלופין, היכן התיאוריה קורסת במצב כזה.`
+        },
+        {
+          label: `אופציה ד' (פרומפט בהתאמה אישית):`,
+          kind: `guidance`,
+          text: `במידה ואף אחת מהאופציות הללו אינה מתאימה לדיסציפלינה שאותה אתם מלמדים, תנו לבינה המלאכותית את ההקשר המלא: העתיקו אליה את כל התרגיל הזה, הסבירו בכמה מילים מהו ההקשר הספציפי שלכם, ובקשו ממנה לייצר עבורכם פרומפט ברוח זו שיתאים לדיסציפלינה, לתיאוריה או למושג שלכם. לאחר שתקבלו מהבינה את הפרומפט המותאם, הזינו אותו בחזרה בשיחה חדשה מול מודל השפה.`
+        }
+      ]
+    },
+    {
+      num: 5,
+      title: `פרקליט השטן: ערעור על ההערכה הקיימת`,
+      goal: `לבחון מחדש את האופן שבו אנו מעריכים למידה והאם הוא מכין את הסטודנטים לעולם האמיתי.`,
+      tag: `פרומפט להעתקה`,
+      type: `single`,
+      promptLabel: `העתיקו את הפרומפט הבא:`,
+      prompt: `אני מלמד את הקורס [שם הקורס] וההערכה המרכזית שלי היא [ניתן לצרף קובץ או לתאר בהרחבה את המטלה/מבחן]. שחק את תפקיד 'פרקליט השטן' שהוא גם פדגוג רדיקלי.
+תן לי 3 סיבות נוקבות מדוע צורת ההערכה הזו מיושנת ולא מכינה את הסטודנטים לאתגרי המאה ה-21. לאחר מכן, הצע לי כיוון מהפכני להערכה שבה הסטודנטים עצמם קובעים מה יהיה התוצר הסופי שיוכיח את שליטתם בחומר.`
+    },
+    {
+      num: 6,
+      title: `הערכה עצמית: עיצוב תוצרי הלמידה ומחוון ההערכה`,
+      goal: `לתרגל העברת אחריות על ידי הפיכת הסטודנט לשותף מלא בבחירת אופן הצגת הלמידה שלו (עדות ללמידה) ובניית סטנדרט ההערכה העצמית.`,
+      tag: `פרומפט להעתקה`,
+      type: `single`,
+      promptLabel: `העתיקו את הפרומפט הבא:`,
+      prompt: `אני סטודנט בקורס [שם הקורס]. המרצה ביקש ממני להציג עדות לכך שלמדתי והבנתי את החומר, ונתן לי חופש בחירה מוחלט לגבי אופן ההצגה. אני מעוניין להגיש פרויקט מסכם יצירתי וייחודי במקום לכתוב עבודה אקדמית רגילה או להיבחן במבחן מסורתי.
+1. הצע לי 3 רעיונות מעשיים, יצירתיים ושונים לחלוטין זה מזה להצגת הלמידה שלי ספציפית בקורס הזה.
+2. לאחר מכן, בחר את הרעיון המקורי ביותר מביניהם. המרצה דרש שאבנה בעצמי את כלי ההערכה שבעזרתו אעריך את עצמי בסוף התהליך, ושעל בסיסו הפרויקט יאושר לי מראש. בנה עבור הרעיון שבחרת מחוון הערכה (Rubric) אקדמי קפדני המיועד להערכה עצמית. המחוון צריך להוכיח למרצה שהפרויקט שבחרתי הוא בעל ערך אקדמי, דורש חשיבה מסדר גבוה, ומציב סטנדרטים מקצועיים ברמה אוניברסיטאית. הצג את המחוון כטבלה.`
+    },
+    {
+      num: 7,
+      title: `צלילה למחילת הארנב: מסע בעקבות הסקרנות`,
+      goal: `לראות איך מושג שולי יכול להפוך לעולם שלם של חקר עצמאי.`,
+      tag: `פרומפט להעתקה`,
+      type: `single`,
+      promptLabel: `העתיקו את הפרומפט הבא:`,
+      prompt: `בחרתי את המושג הספציפי והנקודתי [המושג] מתוך הקורס שלי. אני רוצה לצאת למסע חקר חופשי.
+מצא לי 3 חיבורים מרתקים, לא צפויים ופחות מוכרים בין המושג הזה לבין תחומים רחוקים לחלוטין. אל תכתוב לי מאמר שלם! עבור כל חיבור, זרוק לי רק פסקה קצרה שמעוררת סקרנות, ושאלה אחת פתוחה שתגרום לי לרצות ללכת לחפש עליה מידע נוסף בעצמי.`
+    }
+  ];
+
+  /* ===== Icons ===== */
+  const ICON_COPY = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
+  const ICON_CHECK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>';
+  const ICON_ARROW = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>';
+
+  /* ===== Helpers ===== */
+  function escapeHtml(s){
+    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+  let uid = 0;
+
+  /* Build the full text of an exercise (used by option ד) */
+  function buildFullExercise(exp){
+    const parts = [];
+    parts.push(exp.title);
+    parts.push('המטרה: ' + exp.goal);
+    if(exp.introLabel) parts.push(exp.introLabel);
+    (exp.options||[]).forEach(o => parts.push(o.label + ' ' + o.text));
+    return parts.join('\n');
+  }
+
+  /* ===== Render cards ===== */
+  const cardsEl = document.getElementById('cards');
+  EXPERIENCES.forEach(exp => {
+    const btn = document.createElement('button');
+    btn.className = 'card';
+    btn.type = 'button';
+    btn.setAttribute('aria-haspopup','dialog');
+    btn.dataset.num = exp.num;
+    btn.innerHTML =
+      '<div class="card-top">' +
+        '<span class="card-num" aria-hidden="true">' + exp.num + '</span>' +
+        '<span class="card-tag">' + escapeHtml(exp.tag) + '</span>' +
+      '</div>' +
+      '<h3>' + escapeHtml(exp.title) + '</h3>' +
+      '<p class="goal">' + escapeHtml(exp.goal) + '</p>' +
+      '<span class="open-hint">פתיחת ההתנסות ' + ICON_ARROW + '</span>';
+    btn.addEventListener('click', () => openModal(exp));
+    cardsEl.appendChild(btn);
+  });
+
+  /* ===== Modal ===== */
+  const modal = document.getElementById('modal');
+  const modalNum = document.getElementById('modal-num');
+  const modalTitle = document.getElementById('modal-title');
+  const modalGoal = document.getElementById('modal-goal');
+  const modalBody = document.getElementById('modal-body');
+  const modalClose = document.getElementById('modal-close');
+
+  function promptBlock(label, text, labelClass){
+    uid++;
+    const id = 'ta-' + uid;
+    return '' +
+      '<div class="prompt-block">' +
+        '<label class="' + (labelClass||'prompt-label') + '" for="' + id + '">' + escapeHtml(label) + '</label>' +
+        '<textarea class="prompt-input" id="' + id + '" spellcheck="false" dir="rtl">' + escapeHtml(text) + '</textarea>' +
+        '<div class="prompt-actions">' +
+          '<button type="button" class="btn-copy" data-target="' + id + '">' + ICON_COPY + '<span class="btn-label">העתקת הפרומפט</span></button>' +
+          '<span class="edit-hint">אפשר לערוך את הטקסט לפני ההעתקה</span>' +
+        '</div>' +
+      '</div>';
+  }
+
+  function guidanceBlock(label, text){
+    return '' +
+      '<div class="guidance">' +
+        '<span class="glabel">' + escapeHtml(label) + '</span>' +
+        '<p>' + escapeHtml(text) + '</p>' +
+      '</div>';
+  }
+
+  function openModal(exp){
+    modalNum.textContent = exp.num;
+    modalTitle.textContent = exp.title;
+    modalGoal.textContent = 'המטרה: ' + exp.goal;
+
+    let html = '';
+    if(exp.type === 'guidance'){
+      html += guidanceBlock(exp.guidanceLabel, exp.guidanceText);
+    } else if(exp.type === 'single'){
+      html += promptBlock(exp.promptLabel, exp.prompt);
+    } else if(exp.type === 'multi'){
+      html += '<p class="opt-intro">' + escapeHtml(exp.introLabel) + '</p>';
+      exp.options.forEach(o => {
+        if(o.kind === 'prompt'){
+          html += promptBlock(o.label, o.text, 'opt-label');
+        } else {
+          // guidance option (ד) + convenience "copy whole exercise"
+          uid++;
+          const id = 'ta-' + uid;
+          html += '' +
+            '<div class="prompt-block">' +
+              '<span class="opt-label">' + escapeHtml(o.label) + '</span>' +
+              guidanceBlock('', o.text) +
+              '<div class="prompt-actions">' +
+                '<button type="button" class="btn-copy" data-target="' + id + '">' + ICON_COPY + '<span class="btn-label">העתקת התרגיל המלא</span></button>' +
+                '<span class="edit-hint">מעתיק את כל התנסות 4 כדי להדביק ב-AI ולבקש פרומפט מותאם</span>' +
+              '</div>' +
+              '<textarea class="sr-only" id="' + id + '" aria-hidden="true" tabindex="-1">' + escapeHtml(buildFullExercise(exp)) + '</textarea>' +
+            '</div>';
+        }
+      });
+    }
+    modalBody.innerHTML = html;
+
+    // auto-size visible textareas to their content
+    modalBody.querySelectorAll('.prompt-input').forEach(ta => {
+      autoGrow(ta);
+      ta.addEventListener('input', () => autoGrow(ta));
+    });
+
+    modal.showModal();
+    modalBody.scrollTop = 0;
+  }
+
+  function autoGrow(ta){
+    ta.style.height = 'auto';
+    ta.style.height = (ta.scrollHeight + 2) + 'px';
+  }
+
+  modalClose.addEventListener('click', () => modal.close());
+  // click on backdrop closes
+  modal.addEventListener('click', (e) => { if(e.target === modal) modal.close(); });
+
+  /* ===== Copy ===== */
+  const toast = document.getElementById('toast');
+  let toastTimer = null;
+
+  modalBody.addEventListener('click', (e) => {
+    const btn = e.target.closest('.btn-copy');
+    if(!btn) return;
+    const ta = document.getElementById(btn.dataset.target);
+    if(!ta) return;
+    copyText(ta.value, ta).then(ok => { if(ok) flashCopied(btn); });
+  });
+
+  async function copyText(text, ta){
+    try{
+      await navigator.clipboard.writeText(text);
+      return true;
+    }catch(err){
+      // fallback for file:// or older browsers
+      try{
+        const wasHidden = ta.classList.contains('sr-only');
+        if(wasHidden){ ta.classList.remove('sr-only'); ta.removeAttribute('aria-hidden'); }
+        ta.focus();
+        ta.select();
+        const ok = document.execCommand('copy');
+        window.getSelection().removeAllRanges();
+        if(wasHidden){ ta.classList.add('sr-only'); ta.setAttribute('aria-hidden','true'); }
+        return ok;
+      }catch(e2){ return false; }
+    }
+  }
+
+  function flashCopied(btn){
+    const labelEl = btn.querySelector('.btn-label');
+    const original = labelEl.textContent;
+    btn.classList.add('copied');
+    btn.querySelector('svg').outerHTML = ICON_CHECK;
+    labelEl.textContent = 'הועתק!';
+    showToast('הפרומפט הועתק ללוח');
+    setTimeout(() => {
+      btn.classList.remove('copied');
+      const svg = btn.querySelector('svg');
+      if(svg) svg.outerHTML = ICON_COPY;
+      labelEl.textContent = original;
+    }, 2000);
+  }
+
+  function showToast(msg){
+    toast.innerHTML = ICON_CHECK + '<span>' + escapeHtml(msg) + '</span>';
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove('show'), 2400);
+  }
+  </script>
+</body>
+</html>
