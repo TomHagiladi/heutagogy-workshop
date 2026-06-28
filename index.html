@@ -296,6 +296,17 @@
 
     .opt-intro{font-weight:700;color:var(--ink);margin-bottom:.4rem;}
 
+    /* ===== Follow-up prompts (continue the dialogue) ===== */
+    .followups-head{
+      margin-top:1.9rem;padding-top:1.6rem;border-top:2px solid var(--sand);
+    }
+    .fh-title{
+      display:flex;align-items:center;gap:.5rem;
+      font-weight:800;color:var(--teal-700);font-size:1.12rem;
+    }
+    .fh-title svg{width:1.15em;height:1.15em;flex:none;}
+    .fh-sub{margin-top:.4rem;color:var(--ink-soft);font-size:.94rem;max-width:60ch;}
+
     /* ===== Footer ===== */
     footer{background:var(--teal-700);color:#EAF3F2;padding-block:3rem 2.5rem;}
     .closing{
@@ -515,11 +526,22 @@
       num: 5,
       title: `פרקליט השטן: ערעור על ההערכה הקיימת`,
       goal: `לבחון מחדש את האופן שבו אנו מעריכים למידה והאם הוא מכין את הסטודנטים לעולם האמיתי.`,
-      tag: `פרומפט להעתקה`,
+      tag: `פרומפט + המשכי שיחה`,
       type: `single`,
       promptLabel: `העתיקו את הפרומפט הבא:`,
       prompt: `אני מלמד את הקורס [שם הקורס] וההערכה המרכזית שלי היא [ניתן לצרף קובץ או לתאר בהרחבה את המטלה/מבחן]. שחק את תפקיד 'פרקליט השטן' שהוא גם פדגוג רדיקלי.
-תן לי 3 סיבות נוקבות מדוע צורת ההערכה הזו מיושנת ולא מכינה את הסטודנטים לאתגרי המאה ה-21. לאחר מכן, הצע לי כיוון מהפכני להערכה שבה הסטודנטים עצמם קובעים מה יהיה התוצר הסופי שיוכיח את שליטתם בחומר.`
+תן לי 3 סיבות נוקבות מדוע צורת ההערכה הזו מיושנת ולא מכינה את הסטודנטים לאתגרי המאה ה-21. לאחר מכן, הצע לי כיוון מהפכני להערכה שבה הסטודנטים עצמם קובעים מה יהיה התוצר הסופי שיוכיח את שליטתם בחומר.`,
+      followupsLabel: `לאחר שתקבלו תשובה ראשונית, בחרו פרומפט המשך, ערכו אותו לפי הצורך והדביקו אותו באותה שיחה כדי להמשיך את הדיאלוג:`,
+      followups: [
+        {
+          label: `המשך א' — התאמה לקנה מידה (100 סטודנטים בזום):`,
+          text: `אוקיי, אהבתי את הכיוון. עכשיו אני צריך שזה יהיה ישים בפועל: יש לי כ-100 סטודנטים והלמידה איתם מתרחשת בזום. אני צריך לשמור גם על היכולת שלי לבדוק ולהעריך את כל העבודות בזמן סביר, וגם על עומס הוגן ומידתי שאני מטיל על הסטודנטים. כיצד אפשר להתאים את הצעת ההערכה כך שתעבוד בקנה מידה כזה, מבלי לאבד את העומק ואת הבחירה של הסטודנט? הצע לי דרכים קונקרטיות לצמצם את נטל הבדיקה (למשל הערכת עמיתים, מחוונים ברורים, או הגשות מקובצות), וסיים בשאלה אחת שתעזור לנו לדייק יחד.`
+        },
+        {
+          label: `המשך ב' — לעצב מטלה "חסינת-AI":`,
+          text: `אוקיי, ועכשיו אתגר נוסף: אני רוצה שצורת ההערכה תהיה גם "עמידה בפני AI" — כלומר, שלא יהיה אפשר פשוט להזין את המטלה לבינה מלאכותית ולקבל ממנה את כל התוצר המוגמר. כיצד אפשר לעצב את ההערכה כך שתחייב חשיבה אישית, תהליך, ורפלקציה אנושית שקשה לזייף, ובו-זמנית עדיין תאפשר לסטודנטים להשתמש ב-AI ככלי לגיטימי בלמידה? הצע לי 2-3 עקרונות עיצוב קונקרטיים, וסיים בשאלה שתזמין אותי להחליט אילו מהם מתאימים לקורס שלי.`
+        }
+      ]
     },
     {
       num: 6,
@@ -548,6 +570,7 @@
   const ICON_COPY = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
   const ICON_CHECK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>';
   const ICON_ARROW = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>';
+  const ICON_CHAT = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>';
 
   /* ===== Helpers ===== */
   function escapeHtml(s){
@@ -625,6 +648,16 @@
       html += guidanceBlock(exp.guidanceLabel, exp.guidanceText);
     } else if(exp.type === 'single'){
       html += promptBlock(exp.promptLabel, exp.prompt);
+      if(exp.followups && exp.followups.length){
+        html += '' +
+          '<div class="followups-head">' +
+            '<p class="fh-title">' + ICON_CHAT + '<span>המשך השיחה</span></p>' +
+            (exp.followupsLabel ? '<p class="fh-sub">' + escapeHtml(exp.followupsLabel) + '</p>' : '') +
+          '</div>';
+        exp.followups.forEach(f => {
+          html += promptBlock(f.label, f.text, 'opt-label');
+        });
+      }
     } else if(exp.type === 'multi'){
       html += '<p class="opt-intro">' + escapeHtml(exp.introLabel) + '</p>';
       exp.options.forEach(o => {
